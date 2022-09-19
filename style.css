@@ -16,3 +16,9 @@ th {
   padding: 0.25rem;
   color: white;
 }
+input:not([type="image" i]) {
+  box-sizing: border-box;
+}
+#editForm tfoot input[type="text"] {
+  width: 100%;
+}
