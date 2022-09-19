@@ -44,7 +44,7 @@ function createTeamRequest(team) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(team),
-  });
+  }).then((r) => r.json());
 }
 
 function removeTeamRequest(id) {
@@ -54,6 +54,16 @@ function removeTeamRequest(id) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ id: id }),
+  }).then((r) => r.json());
+}
+
+function updateTeamRequest(team) {
+  return fetch("http://localhost:3000/teams-json/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(team),
   }).then((r) => r.json());
 }
 
@@ -85,30 +95,36 @@ function submitForm(e) {
   const team = getFormValues();
 
   if (editId) {
-    console.warn("pls edit id", editId, team);
+    team.id = editId;
+    updateTeamRequest(team).then((status) => {
+      if (status.success) {
+        $("#editForm").reset();
+        loadTeams();
+      }
+    });
   } else {
-    createTeamRequest(team)
-      .then((r) => r.json())
-      .then((status) => {
-        console.warn("status", status);
-        if (status.success) {
-          location.reload();
-        }
-      });
+    createTeamRequest(team).then((status) => {
+      if (status.success) {
+        $("#editForm").reset();
+        loadTeams();
+      }
+    });
   }
 }
 
 function startEditTeam(id) {
   const team = allTeams.find((team) => team.id === id);
-  console.warn("edit", id, team);
   setFormValues(team);
   editId = id;
 }
 
 function initEvents() {
-  const form = document.getElementById("editForm");
-  console.warn("form", form);
+  const form = $("#editForm");
   form.addEventListener("submit", submitForm);
+  form.addEventListener("reset", () => {
+    console.warn("reset");
+    editId = undefined;
+  });
 
   form.querySelector("tbody").addEventListener("click", (e) => {
     if (e.target.matches("a.delete-btn")) {
