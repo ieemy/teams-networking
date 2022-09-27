@@ -10,15 +10,29 @@ body {
 h1 {
   text-align: center;
 }
-th {
-  background: red;
-  font-size: 1.5rem;
-  padding: 0.25rem;
-  color: white;
-}
+
 input:not([type="image" i]) {
   box-sizing: border-box;
 }
 #editForm tfoot input[type="text"] {
   width: 100%;
+}
+
+#editForm table {
+  border-collapse: collapse;
+  width: 100%;
+}
+#editForm table th,
+#editForm table td {
+  border: 1px solid red;
+  padding: 5px;
+}
+#editForm table th {
+  background-color: red;
+  font-size: 1.5rem;
+  padding: 0.25rem;
+  color: white;
+}
+#editForm table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
