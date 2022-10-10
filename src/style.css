@@ -1,3 +1,6 @@
+header {
+  background-color: red;
+}
 table {
   width: 100%;
 }
@@ -8,7 +11,7 @@ body {
   flex-direction: column;
 }
 h1 {
-  text-align: center;
+  text-align: left;
 }
 
 input:not([type="image" i]) {
@@ -35,4 +38,15 @@ input:not([type="image" i]) {
 }
 #editForm table tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 9999px;
+  height: 2rem;
+  padding: 0.5rem;
+}
+.tableBody {
+  padding: 1rem;
 }
